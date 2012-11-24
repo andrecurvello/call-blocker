@@ -39,8 +39,6 @@ private static int CALLSHIELD_ID = 1982;
 		    String[] bNumberArray = numberString.split(";");
 		    String bNumber = bNumberArray[0];
 		    if (incomingNumber.equals(bNumber)){
-		    	TelephonyManager telephonyManager = (TelephonyManager);
-		    	telephonyManager.
 				//Block the call
 				abortBroadcast();
 				db.addBlockedLogItem(incomingNumber);
