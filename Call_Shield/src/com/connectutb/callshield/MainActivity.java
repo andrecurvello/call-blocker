@@ -49,8 +49,8 @@ public class MainActivity extends Activity {
     	//Handle item selection
     	switch (item.getItemId()){
     	case R.id.menu_settings:
-        	//Intent countryListActivity = new Intent(getBaseContext(), CountryListActivity.class);
-        	//startActivity(countryListActivity);
+    		Intent i = new Intent(this, Preferences.class);
+        	startActivity(i);	
     		return true;
     	case R.id.menu_addBlockedNumber:
     		 //Let the user pick a contact number

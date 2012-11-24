@@ -11,26 +11,29 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 
 public class IncomingCallsReceiver extends BroadcastReceiver{
-private static Context context;
+private Context context;
 private static int CALLSHIELD_ID = 1982;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		this.context = context;
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		// We check the incoming call, and if it matches anything in our database, we drop the call
 		// and add the event to our block log.
 		//Grab incoming call number
 		Bundle bundle = intent.getExtras();
 		String incomingNumber= bundle.getString("incoming_number");
 		String state = bundle.getString(TelephonyManager.EXTRA_STATE);
-	     if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+	    if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
 		
 		//Define database manager
 		DbHelper db = new DbHelper(context);
@@ -38,20 +41,38 @@ private static int CALLSHIELD_ID = 1982;
 		//Grab all the numbers in our blocklist
 		String[] blocklist = db.listBlockedNumbers();
 		//Loop through each item and check if it matches
+		boolean isBlocked = false;
 		for( int i = 0; i < blocklist.length; i++)
 		{
 		    String numberString = blocklist[i];
 		    String[] bNumberArray = numberString.split(";");
 		    String bNumber = bNumberArray[0];
+		    //Number formatting is a bitch..
+		    
+		    if (settings.getBoolean("exact_match",false)== false){
+		    	//mold and format
+		    	bNumber = bNumber.replace(" ", "");
+		    	bNumber = bNumber.replace("-", "");
+		    	incomingNumber = incomingNumber.replace(" ", "");
+		    	incomingNumber = incomingNumber.replace("-", "");
+		    	if (incomingNumber.contains(bNumber)){
+		    		isBlocked=true;
+		    	}
+		    	
+		    }else{
 		    if (incomingNumber.equals(bNumber)){
-		    	//We need to accept the call before ending it
-		    	acceptTheCall();
-				//Block the call
-				blockTheCall();
-				db.addBlockedLogItem(incomingNumber);
-				showNotification(incomingNumber, "name");
+		    	isBlocked=true;
 		    }  
 		}
+		if (isBlocked){
+			//We need to accept the call before ending it
+	    	acceptTheCall();
+			//Block the call
+			blockTheCall();
+			db.addBlockedLogItem(incomingNumber);
+			showNotification(incomingNumber, "name");
+		}
+	    }
 	    }
 	}
 	

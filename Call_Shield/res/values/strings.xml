@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Call Shield</string>
+    <string name="app_name">CallShield</string>
     
     <!--  Menu options -->
-    <string name="menu_settings">Settings</string>
+    <string name="menu_settings">Preferences</string>
     <string name="menu_addBlockedNumber">Add Number</string>
     <string name="menu_showBlockList">Blocked Numbers</string>
     <string name="menu_blockLog">Block Log</string>
     
+    <!-- Preferences -->
+    <string name="prefs_title">Preferences</string>
+    <string name="prefs_general">General</string>
+    <string name="prefs_general_summary">General Preferences</string>
+    <string name="prefs_exact_match">Exact Number Matching</string>
+    <string name="prefs_exact_match_summary">Number formatting must match exactly</string>
     <!-- General Strings -->
     <string name="blocked_numbers">Blocked Numbers</string>
     <string name="blocked_calls">Blocked calls</string>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/prefs_general">
+        
+        <CheckBoxPreference
+            android:key="exact_match"
+            android:title="@string/prefs_exact_match"
+            android:summary="@string/prefs_exact_match_summary"
+            android:defaultValue="false"
+         />
+	</PreferenceCategory>
+</PreferenceScreen>
