@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.telephony.TelephonyManager;
 
 public class IncomingCallsReceiver extends BroadcastReceiver{
 private static Context context;
@@ -38,6 +39,8 @@ private static int CALLSHIELD_ID = 1982;
 		    String[] bNumberArray = numberString.split(";");
 		    String bNumber = bNumberArray[0];
 		    if (incomingNumber.equals(bNumber)){
+		    	TelephonyManager telephonyManager = (TelephonyManager);
+		    	telephonyManager.
 				//Block the call
 				abortBroadcast();
 				db.addBlockedLogItem(incomingNumber);
