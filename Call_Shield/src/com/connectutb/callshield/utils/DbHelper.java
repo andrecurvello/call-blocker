@@ -108,5 +108,24 @@ public String[] listBlockedNumbers(){
     return block_array;
 }
 
+public String getCount(){
+	//Get the number of items in the blocklist
+	String itemCount = "0";
+	//The SQL Query
+    String sqlQuery = "SELECT COUNT(*) AS count FROM " + TABLE_BLOCKLIST;
+    //Define database and cursor
+    SQLiteDatabase db = this.getWritableDatabase();
+    Cursor c = db.rawQuery(sqlQuery, null);
+    c.moveToFirst();
+    itemCount = c.getString(c.getColumnIndex("count"));
+	return itemCount;
+}
+
+public void deleteEntry(String number){
+	String DELETE_ENTRY = "DELETE FROM " + TABLE_BLOCKLIST + " WHERE " + BLOCKLIST_NUMBER + "='" + number + "'";
+	SQLiteDatabase db = this.getWritableDatabase();
+	db.execSQL(DELETE_ENTRY);
+}
+
 
 }

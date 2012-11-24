@@ -7,9 +7,11 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_addBlockedNumber">Add Number</string>
     <string name="menu_showBlockList">Blocked Numbers</string>
+    <string name="menu_blockLog">Block Log</string>
     
     <!-- General Strings -->
     <string name="notification_blocked_number_added">has been added to the blocklist</string>
+    <string name="notification_blocked_number_removed">has been removed from the blocklist</string>
     
     <!--  Main Layout -->
     <string name="main_calls_blocked">Calls blocked</string>

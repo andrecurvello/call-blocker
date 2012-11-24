@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:textColor="#5d7a8d"
         android:textSize="22dp"
-        android:text="Edvard Holst" />
+        android:text="Bob, Builder" />
 
     <TextView
         android:id="@+id/textViewNumber"
@@ -21,6 +21,6 @@
         android:layout_below="@+id/textViewName"
         android:textColor="#5d7a8d"
         android:textSize="15dp"
-        android:text="41815772" />
+        android:text="12345678" />
     
 </RelativeLayout>

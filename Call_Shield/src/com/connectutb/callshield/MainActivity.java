@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -19,6 +20,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		updateCounters();
 	}
 
 	@Override
@@ -26,6 +28,12 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
+	}
+	
+	public void updateCounters(){
+		DbHelper db = new DbHelper(this);
+		TextView blocklistNum = (TextView) findViewById(R.id.textBlocklistCounter);
+		blocklistNum.setText(db.getCount());
 	}
 	
 	 /** Responding to menu selections */
@@ -45,6 +53,9 @@ public class MainActivity extends Activity {
     		//Show list of blocked numbers
     		Intent blockList = new Intent(getBaseContext(), BlockListActivity.class);
     		startActivity(blockList);
+    		return true;
+    	case R.id.menu_showBlockLog:
+    		//Show the block log
     		return true;
     	default:
     		return super.onOptionsItemSelected(item);
