@@ -41,6 +41,11 @@ public class MainActivity extends Activity {
     		 //Let the user pick a contact number
     		addBlockedNumber();
     		return true;
+    	case R.id.menu_showBlockList:
+    		//Show list of blocked numbers
+    		Intent blockList = new Intent(getBaseContext(), BlockListActivity.class);
+    		startActivity(blockList);
+    		return true;
     	default:
     		return super.onOptionsItemSelected(item);
     	}

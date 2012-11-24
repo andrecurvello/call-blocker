@@ -2,7 +2,7 @@
 
     <item
         android:id="@+id/menu_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         android:showAsAction="never"
         android:title="@string/menu_settings"/>
         <item
@@ -11,4 +11,9 @@
         android:showAsAction="ifRoom|withText"
         android:title="@string/menu_addBlockedNumber"/>
 
+        <item
+        android:id="@+id/menu_showBlockList"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menu_showBlockList"/>        
 </menu>

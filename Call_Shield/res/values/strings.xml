@@ -6,8 +6,13 @@
     <!--  Menu options -->
     <string name="menu_settings">Settings</string>
     <string name="menu_addBlockedNumber">Add Number</string>
+    <string name="menu_showBlockList">Blocked Numbers</string>
     
-    <!-- General Stringd -->
+    <!-- General Strings -->
     <string name="notification_blocked_number_added">has been added to the blocklist</string>
+    
+    <!--  Main Layout -->
+    <string name="main_calls_blocked">Calls blocked</string>
+    <string name="main_blocklist_count">Numbers in blocklist</string>
 
 </resources>

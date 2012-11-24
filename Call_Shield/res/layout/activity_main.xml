@@ -7,7 +7,7 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textBlockedCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,5 +16,38 @@
         android:textColor="#5d7a8d"
         android:textSize="40dp"
         android:text="0" />
+
+    <TextView
+        android:id="@+id/textBlocklistCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textBlockedCounter"
+        android:layout_below="@+id/textBlockedCounter"
+        android:layout_marginTop="31dp"
+        android:text="0"
+        android:textColor="#5d7a8d"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/textBlockedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textBlockListTitle"
+        android:layout_centerVertical="true"
+        android:text="@string/main_calls_blocked"
+        android:textColor="#5d7a8d"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textBlockListTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textBlocklistCounter"
+        android:layout_alignBottom="@+id/textBlocklistCounter"
+        android:layout_marginLeft="23dp"
+        android:layout_toRightOf="@+id/textBlocklistCounter"
+        android:text="@string/main_blocklist_count"
+        android:textColor="#5d7a8d"
+        android:textSize="20dp" />
 
 </RelativeLayout>

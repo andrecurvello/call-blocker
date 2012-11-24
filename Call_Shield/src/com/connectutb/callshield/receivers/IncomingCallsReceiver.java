@@ -27,7 +27,9 @@ public class IncomingCallsReceiver extends BroadcastReceiver{
 		//Loop through each item and check if it matches
 		for( int i = 0; i < blocklist.length; i++)
 		{
-		    String bNumber = blocklist[i];
+		    String numberString = blocklist[i];
+		    String[] bNumberArray = numberString.split(";");
+		    String bNumber = bNumberArray[0];
 		    if (incomingNumber.equals(bNumber)){
 				//Block the call
 				abortBroadcast();

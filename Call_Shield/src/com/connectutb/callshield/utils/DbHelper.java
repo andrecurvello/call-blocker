@@ -97,7 +97,7 @@ public String[] listBlockedNumbers(){
     //Loop through the results and add it to the temp_array
     if (c.moveToFirst()){
         do{
-              temp_array.add(c.getString(c.getColumnIndex(BLOCKLIST_NUMBER)));
+              temp_array.add(c.getString(c.getColumnIndex(BLOCKLIST_NUMBER)) + ";"+c.getString(c.getColumnIndex(BLOCKLIST_NAME)));
         }while(c.moveToNext());
      }
     //Close the cursor
@@ -107,4 +107,6 @@ public String[] listBlockedNumbers(){
     //Return the string array
     return block_array;
 }
+
+
 }

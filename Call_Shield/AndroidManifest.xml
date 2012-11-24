@@ -25,6 +25,11 @@
             </intent-filter>
         </activity>
         
+        <activity
+            android:name="com.connectutb.callshield.BlockListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
         <receiver android:name="com.connectutb.callshield.receivers.IncomingCallsReceiver">
     		<intent-filter>
 		        <action android:name="android.intent.action.PHONE_STATE"></action>
