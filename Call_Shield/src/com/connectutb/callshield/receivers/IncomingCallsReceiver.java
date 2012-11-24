@@ -1,5 +1,7 @@
 package com.connectutb.callshield.receivers;
 
+import java.io.IOException;
+
 import com.connectutb.callshield.MainActivity;
 import com.connectutb.callshield.R;
 import com.connectutb.callshield.utils.DbHelper;
@@ -13,19 +15,22 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.telephony.TelephonyManager;
+import android.view.KeyEvent;
 
 public class IncomingCallsReceiver extends BroadcastReceiver{
 private static Context context;
 private static int CALLSHIELD_ID = 1982;
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		this.context = context;
 		// We check the incoming call, and if it matches anything in our database, we drop the call
 		// and add the event to our block log.
 		//Grab incoming call number
-		//String incomingNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
 		Bundle bundle = intent.getExtras();
 		String incomingNumber= bundle.getString("incoming_number");
+		String state = bundle.getString(TelephonyManager.EXTRA_STATE);
+	     if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
 		
 		//Define database manager
 		DbHelper db = new DbHelper(context);
@@ -39,13 +44,31 @@ private static int CALLSHIELD_ID = 1982;
 		    String[] bNumberArray = numberString.split(";");
 		    String bNumber = bNumberArray[0];
 		    if (incomingNumber.equals(bNumber)){
+		    	//We need to accept the call before ending it
+		    	acceptTheCall();
 				//Block the call
-				abortBroadcast();
+				blockTheCall();
 				db.addBlockedLogItem(incomingNumber);
-				setResultData(null);
 				showNotification(incomingNumber, "name");
 		    }  
 		}
+	    }
+	}
+	
+	public void blockTheCall(){
+		try {
+		    Thread.sleep(800);
+		    Runtime.getRuntime().exec(new String[]{"su","-c","input keyevent 6"});
+
+		}catch (Exception e) {
+		    e.printStackTrace();
+		}
+	}
+	
+	public void acceptTheCall(){
+		Intent buttonUp = new Intent(Intent.ACTION_MEDIA_BUTTON);
+	    buttonUp.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_HEADSETHOOK));
+	    context.sendOrderedBroadcast(buttonUp, "android.permission.CALL_PRIVILEGED");
 	}
 	
 	public void showNotification(String number, String name){

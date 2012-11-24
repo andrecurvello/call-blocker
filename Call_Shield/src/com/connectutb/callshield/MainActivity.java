@@ -1,5 +1,7 @@
 package com.connectutb.callshield;
 
+import java.io.IOException;
+
 import com.connectutb.callshield.utils.DbHelper;
 
 import android.net.Uri;
@@ -27,8 +29,10 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
+		checkRoot();
 		return true;
 	}
+	
 	
 	public void updateCounters(){
 		//Update the blocklist counter and the number of blocked calls 
@@ -65,6 +69,16 @@ public class MainActivity extends Activity {
     	default:
     		return super.onOptionsItemSelected(item);
     	}
+    }
+    
+    public void checkRoot(){
+    	//We need root permissions..
+    	final Runtime runtime = Runtime.getRuntime();
+    	try {
+			runtime.exec("su");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     public void addBlockedNumber(){
