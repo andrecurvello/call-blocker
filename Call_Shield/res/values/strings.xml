@@ -2,7 +2,12 @@
 <resources>
 
     <string name="app_name">Call Shield</string>
-    <string name="hello_world">Hello world!</string>
+    
+    <!--  Menu options -->
     <string name="menu_settings">Settings</string>
+    <string name="menu_addBlockedNumber">Add Number</string>
+    
+    <!-- General Stringd -->
+    <string name="notification_blocked_number_added">has been added to the blocklist</string>
 
 </resources>

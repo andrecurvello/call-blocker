@@ -5,5 +5,10 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_settings"/>
+        <item
+        android:id="@+id/menu_addBlockedNumber"
+        android:orderInCategory="99"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menu_addBlockedNumber"/>
 
 </menu>

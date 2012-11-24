@@ -50,7 +50,7 @@ public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
     onCreate(db);
 }
 
-void addBlockedNumber(String number, String name){
+public void addBlockedNumber(String number, String name){
 	//Add a new blocked number
 	    SQLiteDatabase db = this.getWritableDatabase();
 	 
@@ -63,7 +63,7 @@ void addBlockedNumber(String number, String name){
 	    db.close(); //close the database connection
 	}
 
-void addBlockedLogItem(String number, String name){
+public void addBlockedLogItem(String number, String name){
 	//Add a new blocked number log item
 	    SQLiteDatabase db = this.getWritableDatabase();
 	 //Grab current time
