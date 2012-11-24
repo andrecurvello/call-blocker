@@ -1,5 +1,8 @@
 package com.connectutb.callshield.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -57,6 +60,24 @@ void addBlockedNumber(String number, String name){
 	 
 	    /*Inserting the entry */
 	    db.insert(TABLE_BLOCKLIST, null, values);
+	    db.close(); //close the database connection
+	}
+
+void addBlockedLogItem(String number, String name){
+	//Add a new blocked number log item
+	    SQLiteDatabase db = this.getWritableDatabase();
+	 //Grab current time
+	    Date date = new Date();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+	    String formattedDate = sdf.format(date);
+	    
+	    ContentValues values = new ContentValues();
+	    values.put(BLOCKLIST_NUMBER, number);
+	    values.put(BLOCKLIST_NAME, name);
+	    values.put(LOG_TIMESTAMP, formattedDate);
+	 
+	    /*Inserting the entry */
+	    db.insert(TABLE_BLOCKLOG, null, values);
 	    db.close(); //close the database connection
 	}
 }
