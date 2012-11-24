@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.format.Time;
 
 public class DbHelper extends SQLiteOpenHelper{
 	 
@@ -66,18 +67,36 @@ public void addBlockedNumber(String number, String name){
 	    db.close(); //close the database connection
 	}
 
+public String getContactName(String number){
+	//Get the number of items in the blocklist
+		String name ="Unknown";
+		//The SQL Query
+	    String sqlQuery = "SELECT * FROM " + TABLE_BLOCKLIST + " WHERE " + BLOCKLIST_NUMBER+"="+"'"+number+"'";
+	    //Define database and cursor
+	    SQLiteDatabase db = this.getWritableDatabase();
+	    Cursor c = db.rawQuery(sqlQuery, null);
+	    c.moveToFirst();
+	    name = c.getString(c.getColumnIndex(BLOCKLIST_NAME));
+		return name;
+}
+
 public void addBlockedLogItem(String number){
 	//Add a new blocked number log item
 	    SQLiteDatabase db = this.getWritableDatabase();
 	 //Grab current time
-	    Date date = new Date();
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
-	    String formattedDate = sdf.format(date);
+	    SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+	    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+	    
+	    Date now = new Date();
+	    
+	    String strDate = sdfDate.format(now);
+	    String strTime = sdfTime.format(now);
+
 	    
 	    ContentValues values = new ContentValues();
 	    values.put(BLOCKLIST_NUMBER, number);
-	    values.put(BLOCKLIST_NAME, "N/A");
-	    values.put(LOG_TIMESTAMP, formattedDate);
+	    values.put(BLOCKLIST_NAME, getContactName(number));
+	    values.put(LOG_TIMESTAMP, strDate + "-" + strTime);
 	 
 	    /*Inserting the entry */
 	    db.insert(TABLE_BLOCKLOG, null, values);
@@ -113,7 +132,7 @@ public String[] listLog(){
     ArrayList temp_array = new ArrayList();
     String[] log_array = new String[0];
     //The SQL Query
-    String sqlQuery = "SELECT * FROM " + TABLE_BLOCKLOG;
+    String sqlQuery = "SELECT * FROM " + TABLE_BLOCKLOG  + " ORDER BY " + LOG_TIMESTAMP + " ASC";
     //Define database and cursor
     SQLiteDatabase db = this.getWritableDatabase();
     Cursor c = db.rawQuery(sqlQuery, null);

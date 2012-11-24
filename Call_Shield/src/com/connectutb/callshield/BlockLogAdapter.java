@@ -52,7 +52,7 @@ public class BlockLogAdapter extends ArrayAdapter<String>{
 			String blockNumber = "("+arrayString[0]+")";
 			holder.textViewName.setText(blockName);
 			holder.textViewNumber.setText(blockNumber);
-
+			holder.textViewTimestamp.setText(arrayString[2]);
 			return rowView;
 		}
 }

@@ -42,11 +42,13 @@ private static int CALLSHIELD_ID = 1982;
 		String[] blocklist = db.listBlockedNumbers();
 		//Loop through each item and check if it matches
 		boolean isBlocked = false;
+		String triggered_block_number = "";
 		for( int i = 0; i < blocklist.length; i++)
 		{
 		    String numberString = blocklist[i];
 		    String[] bNumberArray = numberString.split(";");
 		    String bNumber = bNumberArray[0];
+		    String bNumber_o = bNumber;
 		    //Number formatting is a bitch..
 		    
 		    if (settings.getBoolean("exact_match",false)== false){
@@ -57,11 +59,13 @@ private static int CALLSHIELD_ID = 1982;
 		    	incomingNumber = incomingNumber.replace("-", "");
 		    	if (incomingNumber.contains(bNumber)){
 		    		isBlocked=true;
+		    		triggered_block_number = bNumber_o;
 		    	}
 		    	
 		    }else{
 		    if (incomingNumber.equals(bNumber)){
 		    	isBlocked=true;
+		    	triggered_block_number = bNumber_o;
 		    }  
 		}
 		if (isBlocked){
@@ -69,7 +73,7 @@ private static int CALLSHIELD_ID = 1982;
 	    	acceptTheCall();
 			//Block the call
 			blockTheCall();
-			db.addBlockedLogItem(incomingNumber);
+			db.addBlockedLogItem(triggered_block_number);
 			showNotification(incomingNumber, "name");
 		}
 	    }
