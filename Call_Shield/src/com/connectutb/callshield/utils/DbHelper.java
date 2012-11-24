@@ -1,10 +1,12 @@
 package com.connectutb.callshield.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -51,6 +53,7 @@ public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
 }
 
 public void addBlockedNumber(String number, String name){
+
 	//Add a new blocked number
 	    SQLiteDatabase db = this.getWritableDatabase();
 	 
@@ -63,7 +66,7 @@ public void addBlockedNumber(String number, String name){
 	    db.close(); //close the database connection
 	}
 
-public void addBlockedLogItem(String number, String name){
+public void addBlockedLogItem(String number){
 	//Add a new blocked number log item
 	    SQLiteDatabase db = this.getWritableDatabase();
 	 //Grab current time
@@ -73,11 +76,35 @@ public void addBlockedLogItem(String number, String name){
 	    
 	    ContentValues values = new ContentValues();
 	    values.put(BLOCKLIST_NUMBER, number);
-	    values.put(BLOCKLIST_NAME, name);
+	    values.put(BLOCKLIST_NAME, "N/A");
 	    values.put(LOG_TIMESTAMP, formattedDate);
 	 
 	    /*Inserting the entry */
 	    db.insert(TABLE_BLOCKLOG, null, values);
 	    db.close(); //close the database connection
 	}
+
+public String[] listBlockedNumbers(){
+    // Retrieve a string array of all our notes
+    ArrayList temp_array = new ArrayList();
+    String[] block_array = new String[0];
+    //The SQL Query
+    String sqlQuery = "SELECT * FROM " + TABLE_BLOCKLIST;
+    //Define database and cursor
+    SQLiteDatabase db = this.getWritableDatabase();
+    Cursor c = db.rawQuery(sqlQuery, null);
+
+    //Loop through the results and add it to the temp_array
+    if (c.moveToFirst()){
+        do{
+              temp_array.add(c.getString(c.getColumnIndex(BLOCKLIST_NUMBER)));
+        }while(c.moveToNext());
+     }
+    //Close the cursor
+    c.close();
+    //Transfer from the ArrayList to string array
+    block_array = (String[]) temp_array.toArray(block_array);
+    //Return the string array
+    return block_array;
+}
 }
