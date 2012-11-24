@@ -31,9 +31,12 @@ public class MainActivity extends Activity {
 	}
 	
 	public void updateCounters(){
+		//Update the blocklist counter and the number of blocked calls 
 		DbHelper db = new DbHelper(this);
 		TextView blocklistNum = (TextView) findViewById(R.id.textBlocklistCounter);
-		blocklistNum.setText(db.getCount());
+		TextView blocklogNum= (TextView) findViewById(R.id.textBlockedCounter);
+		blocklistNum.setText(db.getBlockListCount());
+		blocklogNum.setText(db.getBlockLogCount());
 	}
 	
 	 /** Responding to menu selections */
@@ -56,6 +59,8 @@ public class MainActivity extends Activity {
     		return true;
     	case R.id.menu_showBlockLog:
     		//Show the block log
+    		Intent blockLog = new Intent(getBaseContext(), BlockLogActivity.class);
+    		startActivity(blockLog);
     		return true;
     	default:
     		return super.onOptionsItemSelected(item);

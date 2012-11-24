@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/textViewLogName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#5d7a8d"
+        android:textSize="20dp"
+        android:text="Bob, Builder" />
+
+    <TextView
+        android:id="@+id/textViewLogNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/textViewLogName"
+        android:layout_toRightOf="@+id/textViewLogName"
+        android:textColor="#d1d8dc"
+        android:textSize="15dp"
+        android:text="12345678" />
+    <TextView
+        android:id="@+id/textViewLogTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewLogName"
+        android:textColor="#5d7a8d"
+        android:textSize="13dp"
+        android:text="2012.08.21" />
+       
+</RelativeLayout>

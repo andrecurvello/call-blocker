@@ -10,9 +10,14 @@
     <string name="menu_blockLog">Block Log</string>
     
     <!-- General Strings -->
+    <string name="blocked_numbers">Blocked Numbers</string>
+    <string name="blocked_calls">Blocked calls</string>
     <string name="notification_blocked_number_added">has been added to the blocklist</string>
     <string name="notification_blocked_number_removed">has been removed from the blocklist</string>
     
+    <!--  Status Bar Notification Strings -->
+    <string name="statusbar_call_blocked_title">Call Blocked</string>
+    <string name="statusbar_call_blocked">A call was blocked from:</string>
     <!--  Main Layout -->
     <string name="main_calls_blocked">Calls blocked</string>
     <string name="main_blocklist_count">Numbers in blocklist</string>

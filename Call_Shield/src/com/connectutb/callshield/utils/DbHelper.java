@@ -85,7 +85,7 @@ public void addBlockedLogItem(String number){
 	}
 
 public String[] listBlockedNumbers(){
-    // Retrieve a string array of all our notes
+    // Retrieve a string array of all our blocked contacts
     ArrayList temp_array = new ArrayList();
     String[] block_array = new String[0];
     //The SQL Query
@@ -108,11 +108,48 @@ public String[] listBlockedNumbers(){
     return block_array;
 }
 
-public String getCount(){
+public String[] listLog(){
+    // Retrieve a string array of all our log entries
+    ArrayList temp_array = new ArrayList();
+    String[] log_array = new String[0];
+    //The SQL Query
+    String sqlQuery = "SELECT * FROM " + TABLE_BLOCKLOG;
+    //Define database and cursor
+    SQLiteDatabase db = this.getWritableDatabase();
+    Cursor c = db.rawQuery(sqlQuery, null);
+
+    //Loop through the results and add it to the temp_array
+    if (c.moveToFirst()){
+        do{
+              temp_array.add(c.getString(c.getColumnIndex(BLOCKLIST_NUMBER)) + ";"+c.getString(c.getColumnIndex(BLOCKLIST_NAME))+ ";"+c.getString(c.getColumnIndex(LOG_TIMESTAMP)));
+        }while(c.moveToNext());
+     }
+    //Close the cursor
+    c.close();
+    //Transfer from the ArrayList to string array
+    log_array = (String[]) temp_array.toArray(log_array);
+    //Return the string array
+    return log_array;
+}
+
+public String getBlockListCount(){
 	//Get the number of items in the blocklist
 	String itemCount = "0";
 	//The SQL Query
     String sqlQuery = "SELECT COUNT(*) AS count FROM " + TABLE_BLOCKLIST;
+    //Define database and cursor
+    SQLiteDatabase db = this.getWritableDatabase();
+    Cursor c = db.rawQuery(sqlQuery, null);
+    c.moveToFirst();
+    itemCount = c.getString(c.getColumnIndex("count"));
+	return itemCount;
+}
+
+public String getBlockLogCount(){
+	//Get the number of items in the blocklog
+	String itemCount = "0";
+	//The SQL Query
+    String sqlQuery = "SELECT COUNT(*) AS count FROM " + TABLE_BLOCKLOG;
     //Define database and cursor
     SQLiteDatabase db = this.getWritableDatabase();
     Cursor c = db.rawQuery(sqlQuery, null);
